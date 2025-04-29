@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WebText Editor - Полнофункциональный текстовый редактор</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <div class="logo">
+            <i class="fas fa-file-word"></i>
+            <h1>WebText Editor</h1>
+        </div>
+        <div class="header-actions">
+            <button id="save-btn" class="btn btn-primary">
+                <i class="fas fa-save"></i> Сохранить
+            </button>
+            <div class="user-profile" id="user-avatar">
+                <a href="profile.html" class="profile-link-U">👤</a>
+            </div>
+        </div>
+    </header>
+
+    <div class="toolbar">
+        <div class="toolbar-group">
+            <button id="new-doc" class="toolbar-btn">
+                <i class="fas fa-file"></i>
+                <span class="tooltip">Новый документ</span>
+            </button>
+            <button id="open-doc" class="toolbar-btn">
+                <i class="fas fa-folder-open"></i>
+                <span class="tooltip">Открыть</span>
+            </button>
+            <button id="save-doc" class="toolbar-btn">
+                <i class="fas fa-save"></i>
+                <span class="tooltip">Сохранить</span>
+            </button>
+            <button id="print-doc" class="toolbar-btn">
+                <i class="fas fa-print"></i>
+                <span class="tooltip">Печать</span>
+            </button>
+        </div>
+
+        <div class="toolbar-group">
+            <button id="undo-btn" class="toolbar-btn">
+                <i class="fas fa-undo"></i>
+                <span class="tooltip">Отменить (Ctrl+Z)</span>
+            </button>
+            <button id="redo-btn" class="toolbar-btn">
+                <i class="fas fa-redo"></i>
+                <span class="tooltip">Повторить (Ctrl+Y)</span>
+            </button>
+        </div>
+
+        <div class="toolbar-group">
+            <button id="cut-btn" class="toolbar-btn">
+                <i class="fas fa-cut"></i>
+                <span class="tooltip">Вырезать (Ctrl+X)</span>
+            </button>
+            <button id="copy-btn" class="toolbar-btn">
+                <i class="fas fa-copy"></i>
+                <span class="tooltip">Копировать (Ctrl+C)</span>
+            </button>
+            <button id="paste-btn" class="toolbar-btn">
+                <i class="fas fa-paste"></i>
+                <span class="tooltip">Вставить (Ctrl+V)</span>
+            </button>
+        </div>
+
+        <div class="toolbar-group">
+            <button id="find-btn" class="toolbar-btn">
+                <i class="fas fa-search"></i>
+                <span class="tooltip">Найти (Ctrl+F)</span>
+            </button>
+            <button id="replace-btn" class="toolbar-btn">
+                <i class="fas fa-exchange-alt"></i>
+                <span class="tooltip">Заменить (Ctrl+H)</span>
+            </button>
+        </div>
+    </div>
+
+    <div class="formatting-toolbar">
+        <select id="font-family" class="font-selector">
+            <option value="Arial">Arial</option>
+            <option value="Times New Roman">Times New Roman</option>
+            <option value="Courier New">Courier New</option>
+            <option value="Georgia">Georgia</option>
+            <option value="Verdana">Verdana</option>
+            <option value="Tahoma">Tahoma</option>
+            <option value="Calibri" selected>Calibri</option>
+            <option value="Cambria">Cambria</option>
+        </select>
+
+        <select id="font-size" class="font-size-selector">
+            <option value="1">8</option>
+            <option value="2">9</option>
+            <option value="3">10</option>
+            <option value="4">11</option>
+            <option value="5">12</option>
+            <option value="6" selected>14</option>
+            <option value="7">16</option>
+            <option value="8">18</option>
+            <option value="9">20</option>
+            <option value="10">22</option>
+            <option value="11">24</option>
+            <option value="12">26</option>
+            <option value="13">28</option>
+            <option value="14">36</option>
+            <option value="15">48</option>
+            <option value="16">72</option>
+        </select>
+
+        <button id="bold-btn" class="toolbar-btn">
+            <i class="fas fa-bold"></i>
+            <span class="tooltip">Жирный (Ctrl+B)</span>
+        </button>
+        <button id="italic-btn" class="toolbar-btn">
+            <i class="fas fa-italic"></i>
+            <span class="tooltip">Курсив (Ctrl+I)</span>
+        </button>
+        <button id="underline-btn" class="toolbar-btn">
+            <i class="fas fa-underline"></i>
+            <span class="tooltip">Подчеркнутый (Ctrl+U)</span>
+        </button>
+        <button id="strike-btn" class="toolbar-btn">
+            <i class="fas fa-strikethrough"></i>
+            <span class="tooltip">Зачеркнутый</span>
+        </button>
+
+        <input type="color" id="text-color" class="color-picker" value="#000000" title="Цвет текста">
+        <input type="color" id="highlight-color" class="color-picker" value="#ffffff" title="Цвет выделения">
+
+        <button id="align-left-btn" class="toolbar-btn">
+            <i class="fas fa-align-left"></i>
+            <span class="tooltip">По левому краю</span>
+        </button>
+        <button id="align-center-btn" class="toolbar-btn">
+            <i class="fas fa-align-center"></i>
+            <span class="tooltip">По центру</span>
+        </button>
+        <button id="align-right-btn" class="toolbar-btn">
+            <i class="fas fa-align-right"></i>
+            <span class="tooltip">По правому краю</span>
+        </button>
+        <button id="align-justify-btn" class="toolbar-btn">
+            <i class="fas fa-align-justify"></i>
+            <span class="tooltip">По ширине</span>
+        </button>
+
+        <button id="increase-indent" class="toolbar-btn">
+            <i class="fas fa-indent"></i>
+            <span class="tooltip">Увеличить отступ</span>
+        </button>
+        <button id="decrease-indent" class="toolbar-btn">
+            <i class="fas fa-outdent"></i>
+            <span class="tooltip">Уменьшить отступ</span>
+        </button>
+
+        <button id="list-ul-btn" class="toolbar-btn">
+            <i class="fas fa-list-ul"></i>
+            <span class="tooltip">Маркированный список</span>
+        </button>
+        <button id="list-ol-btn" class="toolbar-btn">
+            <i class="fas fa-list-ol"></i>
+            <span class="tooltip">Нумерованный список</span>
+        </button>
+
+        <button id="insert-table" class="toolbar-btn">
+            <i class="fas fa-table"></i>
+            <span class="tooltip">Вставить таблицу</span>
+        </button>
+        <button id="insert-image" class="toolbar-btn">
+            <i class="fas fa-image"></i>
+            <span class="tooltip">Вставить изображение</span>
+        </button>
+        <button id="insert-link" class="toolbar-btn">
+            <i class="fas fa-link"></i>
+            <span class="tooltip">Вставить ссылку</span>
+        </button>
+    </div>
+
+    <div class="main-content">
+        <div class="sidebar" id="sidebar">
+            <div class="sidebar-section">
+                <h3>Файл</h3>
+                <div class="sidebar-item active" id="sidebar-home">
+                    <i class="fas fa-home"></i> Главная
+                </div>
+                <div class="sidebar-item" id="sidebar-open">
+                    <i class="fas fa-folder-open"></i> Открыть
+                </div>
+                <div class="sidebar-item" id="sidebar-new">
+                    <i class="fas fa-file"></i> Новый документ
+                </div>
+                <div class="sidebar-item" id="sidebar-save">
+                    <i class="fas fa-save"></i> Сохранить
+                </div>
+                <div class="sidebar-item" id="sidebar-print">
+                    <i class="fas fa-print"></i> Печать
+                </div>
+            </div>
+
+            <div class="sidebar-section">
+                <h3>Форматирование</h3>
+                <div class="sidebar-item" id="sidebar-bold">
+                    <i class="fas fa-bold"></i> Жирный текст
+                </div>
+                <div class="sidebar-item" id="sidebar-italic">
+                    <i class="fas fa-italic"></i> Курсив
+                </div>
+                <div class="sidebar-item" id="sidebar-underline">
+                    <i class="fas fa-underline"></i> Подчеркнутый
+                </div>
+                <div class="sidebar-item" id="sidebar-list-ul">
+                    <i class="fas fa-list-ul"></i> Маркированный список
+                </div>
+                <div class="sidebar-item" id="sidebar-list-ol">
+                    <i class="fas fa-list-ol"></i> Нумерованный список
+                </div>
+            </div>
+
+            <div class="sidebar-section">
+                <h3>Вид</h3>
+                <div class="sidebar-item" id="sidebar-zoom-in">
+                    <i class="fas fa-search-plus"></i> Увеличить
+                </div>
+                <div class="sidebar-item" id="sidebar-zoom-out">
+                    <i class="fas fa-search-minus"></i> Уменьшить
+                </div>
+                <div class="sidebar-item" id="sidebar-fullscreen">
+                    <i class="fas fa-expand"></i> Полный экран
+                </div>
+            </div>
+        </div>
+
+        <div class="document-area">
+            <div class="document-toolbar">
+                <button id="toggle-sidebar" class="toolbar-btn">
+                    <i class="fas fa-bars"></i>
+                </button>
+                <input type="text" id="document-name" class="document-name" value="Новый документ" placeholder="Название документа">
+                <button id="toggle-right-sidebar" class="toolbar-btn">
+                    <i class="fas fa-cog"></i>
+                </button>
+            </div>
+
+            <div class="document-container">
+                <div id="editor" contenteditable="true" placeholder="Начните вводить текст здесь..."></div>
+            </div>
+        </div>
+
+        <div class="right-sidebar" id="right-sidebar">
+            <div class="property-group">
+                <h3>Свойства документа</h3>
+                <div class="property-item">
+                    <label for="doc-title">Название</label>
+                    <input type="text" id="doc-title" value="Новый документ">
+                </div>
+                <div class="property-item">
+                    <label for="doc-author">Автор</label>
+                    <input type="text" id="doc-author" value="Пользователь">
+                </div>
+            </div>
+
+            <div class="property-group">
+                <h3>Статистика</h3>
+                <div class="property-item">
+                    <label>Символов:</label>
+                    <span id="char-count">0</span>
+                </div>
+                <div class="property-item">
+                    <label>Слов:</label>
+                    <span id="word-count">0</span>
+                </div>
+                <div class="property-item">
+                    <label>Строк:</label>
+                    <span id="line-count">0</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="status-bar">
+        <div class="status-info">
+            <div class="status-item">
+                <i class="fas fa-font"></i>
+                <span id="current-font">Calibri</span>
+            </div>
+            <div class="status-item">
+                <i class="fas fa-text-height"></i>
+                <span id="current-font-size">14</span> pt
+            </div>
+            <div class="status-item">
+                <span id="current-page">Страница 1</span>
+            </div>
+        </div>
+        <div class="status-info">
+            <div class="status-item">
+                <span id="zoom-level">100%</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Insert Table Modal -->
+    <div id="table-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Вставить таблицу</h2>
+                <button class="modal-close">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="property-item">
+                    <label for="table-rows">Количество строк:</label>
+                    <input type="number" id="table-rows" min="1" max="20" value="3">
+                </div>
+                <div class="property-item">
+                    <label for="table-cols">Количество столбцов:</label>
+                    <input type="number" id="table-cols" min="1" max="10" value="3">
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn" id="cancel-table">Отмена</button>
+                <button class="btn btn-primary" id="insert-table-btn">Вставить</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Insert Link Modal -->
+    <div id="link-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Вставить ссылку</h2>
+                <button class="modal-close">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="property-item">
+                    <label for="link-text">Текст ссылки</label>
+                    <input type="text" id="link-text" placeholder="Текст для отображения">
+                </div>
+                <div class="property-item">
+                    <label for="link-url">URL</label>
+                    <input type="text" id="link-url" placeholder="https://example.com">
+                </div>
+                <div class="property-item">
+                    <label for="link-target">
+                        <input type="checkbox" id="link-target" checked>
+                        Открывать в новом окне
+                    </label>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn" id="cancel-link">Отмена</button>
+                <button class="btn btn-primary" id="insert-link-btn">Вставить</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Find/Replace Modal -->
+    <div id="find-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Найти и заменить</h2>
+                <button class="modal-close">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="property-item">
+                    <label for="find-text">Найти:</label>
+                    <input type="text" id="find-text">
+                </div>
+                <div class="property-item">
+                    <label for="replace-text">Заменить на:</label>
+                    <input type="text" id="replace-text">
+                </div>
+                <div class="property-item">
+                    <label>
+                        <input type="checkbox" id="match-case">
+                        Учитывать регистр
+                    </label>
+                </div>
+                <div class="property-item">
+                    <label>
+                        <input type="checkbox" id="whole-word">
+                        Только целые слова
+                    </label>
+                </div>
+                <div id="find-results"></div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn" id="find-prev">Найти предыдущее</button>
+                <button class="btn" id="find-next">Найти следующее</button>
+                <button class="btn" id="replace-btn-modal">Заменить</button>
+                <button class="btn btn-primary" id="replace-all-btn">Заменить все</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="script2.js"></script>
+</body>
+</html>

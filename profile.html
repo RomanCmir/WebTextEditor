@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Личный кабинет | WebText Editor</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <div class="account-container">
+        <header class="account-header">
+            <h1><i class="fas fa-user-circle"></i> Личный кабинет</h1>
+            <button id="logout-btn" class="btn btn-outline">Выйти</button>
+        </header>
+
+        <div class="account-content">
+            <aside class="account-sidebar">
+                <div class="user-profile">
+                    <div class="avatar" id="user-avatar">JD</div>
+                    <h2 id="username">John Doe</h2>
+                    <p id="user-email">john.doe@example.com</p>
+                </div>
+
+                <nav class="account-menu">
+                    <ul>
+                        <li class="active"><a href="#profile"><i class="fas fa-user"></i> Профиль</a></li>
+                        <li><a href="#documents"><i class="fas fa-file-alt"></i> Мои документы</a></li>
+                        <li><a href="#settings"><i class="fas fa-cog"></i> Настройки</a></li>
+                        <li><a href="#stats"><i class="fas fa-chart-bar"></i> Статистика</a></li>
+                    </ul>
+                </nav>
+            </aside>
+
+            <main class="account-main">
+                <section id="profile-section" class="account-section active">
+                    <h2><i class="fas fa-user-edit"></i> Редактирование профиля</h2>
+                    <form id="profile-form">
+                        <div class="form-group">
+                            <label for="full-name">Полное имя</label>
+                            <input type="text" id="full-name" placeholder="Введите ваше имя">
+                        </div>
+                        <div class="form-group">
+                            <label for="user-email-input">Email</label>
+                            <input type="email" id="user-email-input" placeholder="Введите ваш email">
+                        </div>
+                        <div class="form-group">
+                            <label>Аватар</label>
+                            <div class="avatar-upload">
+                                <div class="avatar-preview" id="avatar-preview">JD</div>
+                                <input type="file" id="avatar-upload" accept="image/*">
+                                <label for="avatar-upload" class="btn btn-secondary">Выбрать изображение</label>
+                            </div>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Сохранить изменения</button>
+                    </form>
+                </section>
+
+                <section id="documents-section" class="account-section">
+                    <h2><i class="fas fa-file-alt"></i> Последние документы</h2>
+                    <div class="documents-grid" id="documents-list">
+                        <!-- Документы будут загружаться через JS -->
+                    </div>
+                </section>
+
+                <section id="settings-section" class="account-section">
+                    <h2><i class="fas fa-cog"></i> Настройки приложения</h2>
+                    <form id="settings-form">
+                        <div class="form-group">
+                            <label for="theme-select">Тема оформления</label>
+                            <select id="theme-select">
+                                <option value="light">Светлая</option>
+                                <option value="dark">Темная</option>
+                                <option value="system">Как в системе</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="font-size">Размер шрифта</label>
+                            <input type="range" id="font-size" min="12" max="24" value="16">
+                            <span id="font-size-value">16px</span>
+                        </div>
+                        <div class="form-group checkbox-group">
+                            <input type="checkbox" id="auto-save" checked>
+                            <label for="auto-save">Автосохранение документов</label>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Применить настройки</button>
+                    </form>
+                </section>
+
+                <section id="stats-section" class="account-section">
+                    <h2><i class="fas fa-chart-bar"></i> Статистика работы</h2>
+                    <div class="stats-grid">
+                        <div class="stat-card">
+                            <div class="stat-value" id="total-docs">0</div>
+                            <div class="stat-label">Всего документов</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-value" id="total-chars">0</div>
+                            <div class="stat-label">Символов написано</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-value" id="active-days">0</div>
+                            <div class="stat-label">Активных дней</div>
+                        </div>
+                    </div>
+                    <div class="chart-container">
+                        <canvas id="activity-chart"></canvas>
+                    </div>
+                </section>
+            </main>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
